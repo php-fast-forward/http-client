@@ -1,0 +1,61 @@
+{
+    "name": "fast-forward/http-client",
+    "description": "Fast Forward PSR-18 HTTP Client Factory",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Felipe Sayão Lobato Abreu",
+            "email": "github@mentordosnerds.com"
+        }
+    ],
+    "homepage": "https://github.com/php-fast-forward",
+    "support": {
+        "issues": "https://github.com/php-fast-forward/http-client/issues",
+        "source": "https://github.com/php-fast-forward/http-client"
+    },
+    "require": {
+        "php": "^8.1",
+        "container-interop/service-provider": "^0.4.1",
+        "fast-forward/container": "^1.4",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.1",
+        "symfony/http-client": "^7.3"
+    },
+    "require-dev": {
+        "coisa/php-cs-fixer": "^2.1",
+        "phpspec/prophecy-phpunit": "^2.3",
+        "phpunit/phpunit": "^9.6 || ^10.5 || ^11.5"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "FastForward\\Http\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FastForward\\Http\\Client\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    },
+    "scripts": {
+        "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix",
+        "mutation-testing": "infection --threads=4",
+        "pre-commit": [
+            "@cs-check",
+            "@static-analysis",
+            "@tests"
+        ],
+        "static-analysis": "phpstan analyse --level 5 src",
+        "tests": "phpunit --testdox"
+    }
+}

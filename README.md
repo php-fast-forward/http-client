@@ -2,7 +2,7 @@
 
 [![PHP Version](https://img.shields.io/badge/PHP-^8.1-8892BF?logo=php)](https://www.php.net/)
 [![License](https://img.shields.io/github/license/php-fast-forward/http-client)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/php-fast-forward/http-client/actions/workflows/ci.yml/badge.svg)](https://github.com/php-fast-forward/http-client/actions)
+[![CI](https://github.com/php-fast-forward/http-client/actions/workflows/tests.yml/badge.svg)](https://github.com/php-fast-forward/http-client/actions)
 
 A [PSR-11](https://www.php-fig.org/psr/psr-11/) compatible service provider that registers a fully functional set of [PSR-18](https://www.php-fig.org/psr/psr-18/)  HTTP client using Symfony HttpClient and Psr18Client.
 

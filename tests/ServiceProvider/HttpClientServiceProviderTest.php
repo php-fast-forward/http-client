@@ -8,9 +8,12 @@ declare(strict_types=1);
  * This source file is subject to the license bundled
  * with this source code in the file LICENSE.
  *
- * @link      https://github.com/php-fast-forward/http-client
- * @copyright Copyright (c) 2025 Felipe Sayão Lobato Abreu <github@mentordosnerds.com>
+ * @copyright Copyright (c) 2025-2026 Felipe Sayão Lobato Abreu <github@mentordosnerds.com>
  * @license   https://opensource.org/licenses/MIT MIT License
+ *
+ * @see       https://github.com/php-fast-forward/http-client
+ * @see       https://github.com/php-fast-forward
+ * @see       https://datatracker.ietf.org/doc/html/rfc2119
  */
 
 namespace FastForwardTest\Http\Client\ServiceProvider;
@@ -32,13 +35,19 @@ final class HttpClientServiceProviderTest extends TestCase
 {
     private HttpClientServiceProvider $provider;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->provider = new HttpClientServiceProvider();
     }
 
+    /**
+     * @return void
+     */
     #[Test]
-    public function testGetFactoriesWillReturnHttpClientAndClientInterfaceFactories(): void
+    public function getFactoriesWillReturnHttpClientAndClientInterfaceFactories(): void
     {
         $factories = $this->provider->getFactories();
 
@@ -49,8 +58,11 @@ final class HttpClientServiceProviderTest extends TestCase
         self::assertInstanceOf(InvokableFactory::class, $factories[ClientInterface::class]);
     }
 
+    /**
+     * @return void
+     */
     #[Test]
-    public function testGetExtensionsWillReturnEmptyArray(): void
+    public function getExtensionsWillReturnEmptyArray(): void
     {
         self::assertSame([], $this->provider->getExtensions());
     }

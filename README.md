@@ -1,6 +1,6 @@
 🚀 FastForward HTTP Client
 
-[![PHP Version](https://img.shields.io/badge/PHP-^8.1-8892BF?logo=php)](https://www.php.net/)
+[![PHP Version](https://img.shields.io/badge/PHP-%5E8.3-8892BF?logo=php)](https://www.php.net/)
 [![License](https://img.shields.io/github/license/php-fast-forward/http-client)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/php-fast-forward/http-client/actions/workflows/tests.yml/badge.svg)](https://github.com/php-fast-forward/http-client/actions)
 

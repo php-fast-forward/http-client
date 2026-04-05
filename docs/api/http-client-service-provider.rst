@@ -1,35 +1,89 @@
 HttpClientServiceProvider
-========================
+=========================
 
 .. php:class:: FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider
 
-   Provides a PSR-compliant HTTP client service provider for dependency injection containers.
-   This service provider registers factories for HTTP client services, including:
+   Registers the service factories exposed by ``fast-forward/http-client``.
+   It implements ``Interop\Container\ServiceProviderInterface`` and publishes one
+   Symfony transport entry point plus one PSR-18 client entry point.
 
-   - ``Symfony\Component\HttpClient\HttpClient`` (default Symfony HTTP client)
-   - ``Psr\Http\Client\ClientInterface`` (PSR-18 compatible client)
+Description
+-----------
 
-   **Usage:**
+``HttpClientServiceProvider`` is the only class defined by this package. It has
+no constructor arguments and no internal configuration object. Its job is to
+return a small, explicit factory map and let container composition decide how
+those services are overridden or complemented.
 
-   .. code-block:: php
+Factory Map
+-----------
 
-      use FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider;
-      use FastForward\Container\Container;
+.. list-table::
+   :header-rows: 1
 
-      $container = new Container([
-          new HttpClientServiceProvider(),
-      ]);
+   * - Service ID
+     - Factory type
+     - Result
+   * - ``Symfony\Component\HttpClient\HttpClient``
+     - ``FastForward\Container\Factory\MethodFactory``
+     - Calls ``Symfony\Component\HttpClient\HttpClient::create()`` and returns a
+       runtime-selected ``Symfony\Contracts\HttpClient\HttpClientInterface``
+       implementation.
+   * - ``Psr\Http\Client\ClientInterface``
+     - ``FastForward\Container\Factory\InvokableFactory``
+     - Builds ``Symfony\Component\HttpClient\Psr18Client`` using the Symfony
+       transport plus PSR-17 response and stream factories.
 
-   **Methods:**
+Dependencies And Collaborators
+------------------------------
 
-   .. php:method:: getFactories()
+The provider depends on several external classes and interfaces:
 
-      Returns an associative array of service factories. Registers the default Symfony HttpClient and a PSR-18 compatible client.
+- ``Symfony\Component\HttpClient\HttpClient`` supplies the default transport
+  factory method.
+- ``Symfony\Component\HttpClient\Psr18Client`` adapts Symfony HttpClient to
+  PSR-18.
+- ``Psr\Http\Message\ResponseFactoryInterface`` and
+  ``Psr\Http\Message\StreamFactoryInterface`` must already be resolvable in the
+  container before ``ClientInterface`` can be built.
+- ``FastForward\Container\Factory\MethodFactory`` and
+  ``FastForward\Container\Factory\InvokableFactory`` perform the actual service
+  creation steps.
 
-   .. php:method:: getExtensions()
+Behavior Notes
+--------------
 
-      Returns an associative array of service extensions. Returns an empty array if no extensions are registered.
+- ``getFactories()`` returns exactly two registrations.
+- ``getExtensions()`` returns an empty array.
+- The provider does not register request, response, stream, or URI factory
+  services on its own.
+- The service ID ``HttpClient::class`` is a lookup key, not the exact runtime
+  class you should expect after resolution.
 
-   **Implements:**
+Usage Example
+-------------
 
-   - :php:class:`Interop\Container\ServiceProviderInterface`
+.. code-block:: php
+
+   use FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider;
+   use FastForward\Http\Message\Factory\ServiceProvider\HttpMessageFactoryServiceProvider;
+
+   use function FastForward\Container\container;
+
+   $container = container(
+       new HttpMessageFactoryServiceProvider(),
+       new HttpClientServiceProvider(),
+   );
+
+Methods
+-------
+
+.. php:method:: getFactories()
+
+   Returns the package factory map. The map contains the Symfony transport entry
+   and the PSR-18 client entry described above.
+
+.. php:method:: getExtensions()
+
+   Returns an empty extension map. Decoration and replacement are expected to be
+   handled by the surrounding container composition.

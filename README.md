@@ -1,67 +1,109 @@
-🚀 FastForward HTTP Client
+# FastForward HTTP Client
 
 [![PHP Version](https://img.shields.io/badge/PHP-%5E8.3-8892BF?logo=php)](https://www.php.net/)
 [![License](https://img.shields.io/github/license/php-fast-forward/http-client)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/php-fast-forward/http-client/actions/workflows/tests.yml/badge.svg)](https://github.com/php-fast-forward/http-client/actions)
 
-A [PSR-11](https://www.php-fig.org/psr/psr-11/) compatible service provider that registers a fully functional set of [PSR-18](https://www.php-fig.org/psr/psr-18/)  HTTP client using Symfony HttpClient and Psr18Client.
+FastForward HTTP Client is a focused integration package that registers a
+PSR-18 HTTP client in a FastForward-compatible container. It uses Symfony
+HttpClient as the transport layer and exposes
+`Psr\Http\Client\ClientInterface` for application code.
 
-Designed to work out of the box with the [`php-fast-forward/container`](https://github.com/php-fast-forward/container) autowiring system.
+## What this package does
 
----
+- Registers `Psr\Http\Client\ClientInterface` as
+  `Symfony\Component\HttpClient\Psr18Client`
+- Registers `Symfony\Component\HttpClient\HttpClient` through
+  `HttpClient::create()`
+- Fits naturally into `fast-forward/container` service-provider based
+  configuration
 
-## 📦 Installation
+## Important note for first-time users
+
+This package does not register PSR-17 factories on its own. To resolve
+`Psr\Http\Client\ClientInterface`, your container must already provide:
+
+- `Psr\Http\Message\ResponseFactoryInterface`
+- `Psr\Http\Message\StreamFactoryInterface`
+
+In a FastForward application, the usual solution is to install
+[`fast-forward/http-factory`](https://github.com/php-fast-forward/http-factory)
+or the all-in-one
+[`fast-forward/http`](https://github.com/php-fast-forward/http) metapackage.
+
+## Installation
+
+Install the package itself:
 
 ```bash
 composer require fast-forward/http-client
 ```
 
-## ✅ Features
-- Registers the default _Symfony HttpClient_ using `HttpClient::create()
-- Registers the PSR-18 _Psr18Client_ with its dependencies injected
-- Provides aliases for:
-  - _Psr\Http\Client\ClientInterface_
-  - _Symfony\Component\HttpClient\HttpClient_
+Choose one of these setups:
 
-## 🛠️ Usage
+- If your container already provides PSR-17 factories, `fast-forward/http-client`
+  is enough.
+- If you want explicit FastForward PSR-17 and PSR-18 providers, install
+  `fast-forward/http-client fast-forward/http-factory`.
+- If you want the shortest onboarding path, install `fast-forward/http`.
 
-If you’re using `fast-forward/container`:
+## Quick start
+
+This example uses both `fast-forward/http-factory` and
+`fast-forward/http-client` so it works in a fresh project:
+
 ```php
-use FastForward\Container\container;
-use FastForward\Config\ArrayConfig;
-use FastForward\Container\ContainerInterface;
+<?php
 
-$config = new ArrayConfig([
-    ContainerInterface::class => [
-        // Reference the service provider by class name
-        FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider::class,
-    ],
-]);
+declare(strict_types=1);
 
-$container = container($config);
+use FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider;
+use FastForward\Http\Message\Factory\ServiceProvider\HttpMessageFactoryServiceProvider;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 
-$client = $container->get(Psr\Http\Client\ClientInterface::class);
-$response = $client->sendRequest($yourPsr7Request);
+use function FastForward\Container\container;
+
+$container = container(
+    new HttpMessageFactoryServiceProvider(),
+    new HttpClientServiceProvider(),
+);
+
+/** @var RequestFactoryInterface $requestFactory */
+$requestFactory = $container->get(RequestFactoryInterface::class);
+$request = $requestFactory->createRequest('GET', 'https://example.com');
+
+/** @var ClientInterface $client */
+$client = $container->get(ClientInterface::class);
+$response = $client->sendRequest($request);
+
+$statusCode = $response->getStatusCode();
+$body = (string) $response->getBody();
 ```
 
-## 🔧 Services Registered
+## Registered services
 
-The following services will be automatically registered in your container when using `HttpClientServiceProvider`:
+| Service ID | Resolved object | Typical use |
+| --- | --- | --- |
+| `Psr\Http\Client\ClientInterface` | `Symfony\Component\HttpClient\Psr18Client` | Portable PSR-18 application code |
+| `Symfony\Component\HttpClient\HttpClient` | A runtime-selected `Symfony\Contracts\HttpClient\HttpClientInterface` implementation | Native Symfony HttpClient features |
 
-| Service Interface                         | Implementation Source                      |
-|-------------------------------------------|--------------------------------------------|
-| `Symfony\Component\HttpClient\HttpClient` | Registered via `MethodFactory::create()`   |
-| `Psr\Http\Client\ClientInterface`         | `Symfony\Component\HttpClient\Psr18Client` |
+## Documentation
 
----
+The Sphinx documentation in [`docs/`](docs/) now covers:
 
-## 📂 License
+- installation paths for beginners
+- the dependency on PSR-17 factories
+- direct Symfony client usage versus PSR-18 usage
+- override patterns for timeouts, headers, and base URIs
+- compatibility notes and FAQ entries for common setup mistakes
 
-This package is open-source software licensed under the [MIT License](https://opensource.org/licenses/MIT).
+## License
 
----
+This package is open-source software licensed under the
+[MIT License](https://opensource.org/licenses/MIT).
 
-## 🤝 Contributing
+## Contributing
 
-Contributions, issues, and feature requests are welcome!  
-Feel free to open a [GitHub Issue](https://github.com/php-fast-forward/http-client/issues) or submit a Pull Request.
+Contributions, issues, and pull requests are welcome at
+[php-fast-forward/http-client](https://github.com/php-fast-forward/http-client).

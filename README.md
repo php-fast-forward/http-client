@@ -1,7 +1,7 @@
 # FastForward HTTP Client
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/php-fast-forward/http-client/0e2e7b33d66154a06d3754ed692c493770ec7f79/docs/_static/mascot-banner.png" alt="Dash sending a request to a server and receiving its response" width="840">
+  <img src="docs/_static/mascot-banner.png" alt="Dash sending a request to a server and receiving its response" width="840">
 </p>
 
 [![PHP Version](https://img.shields.io/badge/php-^8.3-777BB4?logo=php&logoColor=white)](https://www.php.net/releases/)

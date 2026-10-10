@@ -14,4 +14,4 @@ permissions:
 
 jobs:
   reports:
-    uses: php-fast-forward/dev-tools/.github/workflows/reports-native.yml@codex/native-pages-reports
+    uses: php-fast-forward/dev-tools/.github/workflows/reports-native.yml@main

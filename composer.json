@@ -16,7 +16,7 @@
     },
     "require": {
         "php": "^8.3",
-        "fast-forward/container": "^1.4",
+        "fast-forward/container": "^1.10",
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.1",
         "symfony/http-client": "^7.3"

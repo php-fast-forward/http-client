@@ -118,3 +118,12 @@ This package is open-source software licensed under the
 
 Contributions, issues, and pull requests are welcome at
 [php-fast-forward/http-client](https://github.com/php-fast-forward/http-client).
+
+## Consumer agent skill
+
+The package includes [fast-forward-http-client](resources/skills/fast-forward-http-client/SKILL.md) for application integration.
+It supports `fast-forward/http-client:^1.2`; inspect the installed version.
+See [skill installation and lifecycle](resources/skills/fast-forward-http-client/references/installation.md) for
+optional project synchronization with `llm/skills ^1.15`, guarded manual
+project/global copies and a pinned Skills CLI alternative. Shipping files does
+not install tooling or activate the skill in an agent session.

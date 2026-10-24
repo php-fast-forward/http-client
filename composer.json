@@ -23,6 +23,7 @@
     },
     "require-dev": {
         "fast-forward/dev-tools": "dev-main",
+        "llm/skills": "^1.15",
         "nyholm/psr7": "^1.8"
     },
     "suggest": {
@@ -43,10 +44,11 @@
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
             "fast-forward/dev-tools": true,
+            "llm/skills": true,
             "phpdocumentor/shim": true,
             "phpro/grumphp": true,
-            "pyrech/composer-changelogs": true,
-            "llm/skills": true
+            "phpro/grumphp-shim": true,
+            "pyrech/composer-changelogs": true
         },
         "platform": {
             "php": "8.3.0"

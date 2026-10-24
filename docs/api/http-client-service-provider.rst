@@ -1,11 +1,11 @@
 HttpClientServiceProvider
 =========================
 
-.. php:class:: FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider
+``FastForward\Http\Client\ServiceProvider\HttpClientServiceProvider``
 
-   Registers the service factories exposed by ``fast-forward/http-client``.
-   It implements ``Interop\Container\ServiceProviderInterface`` and publishes one
-   Symfony transport entry point plus one PSR-18 client entry point.
+Registers the service factories exposed by ``fast-forward/http-client``.
+It implements ``Interop\Container\ServiceProviderInterface`` and publishes one
+Symfony transport entry point plus one PSR-18 client entry point.
 
 Description
 -----------
@@ -78,12 +78,12 @@ Usage Example
 Methods
 -------
 
-.. php:method:: getFactories()
+``getFactories()``
 
-   Returns the package factory map. The map contains the Symfony transport entry
-   and the PSR-18 client entry described above.
+Returns the package factory map. The map contains the Symfony transport entry
+and the PSR-18 client entry described above.
 
-.. php:method:: getExtensions()
+``getExtensions()``
 
-   Returns an empty extension map. Decoration and replacement are expected to be
-   handled by the surrounding container composition.
+Returns an empty extension map. Decoration and replacement are expected to be
+handled by the surrounding container composition.

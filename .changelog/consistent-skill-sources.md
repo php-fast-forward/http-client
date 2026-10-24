@@ -9,3 +9,5 @@ Resolve Changelog contributor skills from stable `0.4.x` releases without a
 redundant skill allowlist.
 Load the project autoloader for PHPDoc checks when DevTools is installed as a
 dependency.
+Render provider API guidance with supported reStructuredText instead of missing
+PHP domain directive templates.

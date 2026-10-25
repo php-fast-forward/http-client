@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-10-25
+
+### Changed
+
+- Resolve Changelog contributor skills from stable `0.4.x` GitHub releases using
+  the package's declared payload without a redundant skill allowlist.
+
+  ([#9](https://github.com/php-fast-forward/http-client/pull/9))
+
+- Restore the bundled consumer skill automatically from the local
+  `resources/skills` source.
+
+  ([#9](https://github.com/php-fast-forward/http-client/pull/9))
+
+- Trust installed Fast Forward Composer skill donors through `fast-forward/*`,
+  replacing implicit trust for other namespaces.
+
+  ([#9](https://github.com/php-fast-forward/http-client/pull/9))
+
+### Fixed
+
+- Load the consumer autoloader for PHPDoc checks when DevTools is installed as a
+  dependency.
+
+  ([#9](https://github.com/php-fast-forward/http-client/pull/9))
+
+- Render provider API guidance with supported reStructuredText instead of missing
+  PHP domain directive templates.
+
+  ([#9](https://github.com/php-fast-forward/http-client/pull/9))
+
 ## [1.2.0] - 2026-10-21
 
 ### Added
@@ -31,6 +62,7 @@ Release notes are unavailable for this version.
 
 Release notes are unavailable for this version.
 
+[1.2.1]: https://github.com/php-fast-forward/http-client/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/php-fast-forward/http-client/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/php-fast-forward/http-client/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/php-fast-forward/http-client/compare/v1.0.0...v1.0.1

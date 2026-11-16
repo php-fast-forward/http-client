@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.4] - 2026-11-16
+
+### Changed
+
+- Group Dependabot dependency updates by ecosystem and dependency type. ([#15](https://github.com/php-fast-forward/http-client/pull/15))
+
 ## [1.2.3] - 2026-11-11
 
 ### Changed
@@ -82,6 +88,7 @@ Release notes are unavailable for this version.
 
 Release notes are unavailable for this version.
 
+[1.2.4]: https://github.com/php-fast-forward/http-client/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/php-fast-forward/http-client/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/php-fast-forward/http-client/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/php-fast-forward/http-client/compare/v1.2.0...v1.2.1
